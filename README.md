@@ -1,6 +1,6 @@
 # [each-promise][author-www-url] [![npmjs.com][npmjs-img]][npmjs-url] [![The MIT License][license-img]][license-url] [![npm downloads][downloads-img]][downloads-url] 
 
-> Map over promises, promise-returning or async/await functions in series or parallel. Support settle (fail-fast), concurrency and hooks system (start, beforeEach, afterEach, finish)
+> Iterate over promises, promise-returning or async/await functions in series or parallel. Support settle (fail-fast), concurrency (limiting) and hooks system (start, beforeEach, afterEach, finish)
 
 [![code climate][codeclimate-img]][codeclimate-url] [![standard code style][standard-img]][standard-url] [![travis build status][travis-img]][travis-url] [![coverage status][coveralls-img]][coveralls-url] [![dependency status][david-img]][david-url]
 
@@ -19,6 +19,32 @@ const eachPromise = require('each-promise')
 ```
 
 ## API
+
+### [.serial/.series](index.js#L26)
+
+> Iterate over `iterable` in series (serially)
+with optional `options` (see [options section](#options))
+and optional `mapper` function (see [mapper section](#mapper)).
+
+**Params**
+
+* `<iterable>` **{Array|Object}**: iterable object like array or object    
+* `[mapper]` **{Function}**: function to map over values, see [mapper section](#mapper)    
+* `[options]` **{Object}**: see [options section](#options)    
+* `returns` **{Promise}**  
+
+### [.parallel](index.js#L44)
+
+> Iterate over `iterable` in parallel (support limiting with `options.concurrency`)
+with optional `options` (see [options section](#options))
+and optional `mapper` function (see [mapper section](#mapper)).
+
+**Params**
+
+* `<iterable>` **{Array|Object}**: iterable object like array or object    
+* `[mapper]` **{Function}**: function to map over values, see [mapper section](#mapper)    
+* `[options]` **{Object}**: see [options section](#options)    
+* `returns` **{Promise}**  
 
 ## Contributing
 Pull requests and stars are always welcome. For bugs and feature requests, [please create an issue](https://github.com/tunnckoCore/each-promise/issues/new).  

@@ -10,9 +10,36 @@
 var utils = require('./utils')
 var each = module.exports
 
-each.series = each.serial = function eachSerial (iterable, mapper, options) {
+/**
+ * > Iterate over `iterable` in series (serially)
+ * with optional `options` (see [options section](#options))
+ * and optional `mapper` function (see [mapper section](#mapper)).
+ *
+ * @name   .serial/.series
+ * @param  {Array|Object} `<iterable>` iterable object like array or object
+ * @param  {Function} `[mapper]` function to map over values, see [mapper section](#mapper)
+ * @param  {Object} `[options]` see [options section](#options)
+ * @return {Promise}
+ * @api public
+ */
+
+each.serial = function eachSerial (iterable, mapper, options) {
   return compose(false)(iterable, mapper, options)
 }
+each.series = each.serial
+
+/**
+ * > Iterate over `iterable` in parallel (support limiting with `options.concurrency`)
+ * with optional `options` (see [options section](#options))
+ * and optional `mapper` function (see [mapper section](#mapper)).
+ *
+ * @name   .parallel
+ * @param  {Array|Object} `<iterable>` iterable object like array or object
+ * @param  {Function} `[mapper]` function to map over values, see [mapper section](#mapper)
+ * @param  {Object} `[options]` see [options section](#options)
+ * @return {Promise}
+ * @api public
+ */
 
 each.parallel = function eachParallel (iterable, mapper, options) {
   var parallel = compose(true)

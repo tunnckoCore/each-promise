@@ -37,27 +37,38 @@ var arr = [
       return 567
     })
   },
+  'abc',
   function four () {
     return delay(250).then(() => {
       console.log(44)
       return 789
     })
   },
-  'abc',
   function five () {
     return delay(100).then(() => {
       sasasa // eslint-disable-line no-undef
       // console.log(55)
       return 444
     })
+  },
+  function six () {
+    return delay(80).then(() => {
+      console.log(66)
+      return 'last'
+    })
   }
 ]
 
-// bug when "concurrency + settle: false", it's okey when settle:true
-// bug when concurrency < arr.length, it's okey when settle:true
-var settle = true
-each.parallel(arr, {
-  concurrency: 2,
+// .serial/.series:
+// - works correctly
+// .parallel:
+// - ?? (not sure) bug when `settle: false` and `concurrency < arr.length`
+//
+var settle = false
+each.parallel(arr/*, function mapper (item, index) {
+  console.log(item, index)
+}*/, {
+  concurrency: 5,
   settle: settle,
   start: function () {
     console.log('start')
