@@ -28,7 +28,7 @@ and optional `mapper` function (see [mapper section](#mapper)).
 
 **Params**
 
-* `<iterable>` **{Array|Object}**: iterable object like array or object    
+* `<iterable>` **{Array|Object}**: iterable object like array or object with any type of values    
 * `[mapper]` **{Function}**: function to map over values, see [mapper section](#mapper)    
 * `[options]` **{Object}**: see [options section](#options)    
 * `returns` **{Promise}**  
@@ -41,10 +41,34 @@ and optional `mapper` function (see [mapper section](#mapper)).
 
 **Params**
 
-* `<iterable>` **{Array|Object}**: iterable object like array or object    
+* `<iterable>` **{Array|Object}**: iterable object like array or object with any type of values    
 * `[mapper]` **{Function}**: function to map over values, see [mapper section](#mapper)    
 * `[options]` **{Object}**: see [options section](#options)    
 * `returns` **{Promise}**  
+
+## Options
+> You have control over everything, through options.
+
+* `Promise` **{Function}**: custom Promise constructor to be used, defaults to native
+* `mapper` **{Function}**: see [mapper section](#mapper)
+* `settle` **{Boolean}**: if `false` stops after first error (also known as _"fail-fast"_ or _"bail"_), default `true`
+* `flat` **{Boolean}**: result array to contain only values, default `true`
+* `concurrency` **{Number}**: works only with `.parallel` method, defaults to `iterable` length
+* `start` **{Function}**: on start hook, called once at the begining of iteration
+* `beforeEach` **{Function}**: called before each item in `iterable`,
+  + passed with `item, index, arr` arguments
+  + where `item.value` may be resolved/rejected value **or function**
+  + may `item.reason` exists with error object, if exists then `item.value` not exists
+  + where `item.index` is number, order
+* `afterEach` **{Function}**: called after each item in `iterable`
+  + passed with `item, index, arr` arguments
+  + where `item.value` may be resolved/rejected value
+  + may `item.reason` exists with error object, if exists then `item.value` not exists
+  + where `item.index` is number, order
+* `finish` **{Function}**: called at the end of iteration, passed with `err, result` arguments, where the `result` can be one of:
+  + array of resolved/rejected values
+  + array of `item` objects if `flat: false`
+  + array of what you returned from `mapper` function
 
 ## Contributing
 Pull requests and stars are always welcome. For bugs and feature requests, [please create an issue](https://github.com/tunnckoCore/each-promise/issues/new).  

@@ -16,7 +16,7 @@ var each = module.exports
  * and optional `mapper` function (see [mapper section](#mapper)).
  *
  * @name   .serial/.series
- * @param  {Array|Object} `<iterable>` iterable object like array or object
+ * @param  {Array|Object} `<iterable>` iterable object like array or object with any type of values
  * @param  {Function} `[mapper]` function to map over values, see [mapper section](#mapper)
  * @param  {Object} `[options]` see [options section](#options)
  * @return {Promise}
@@ -34,7 +34,7 @@ each.series = each.serial
  * and optional `mapper` function (see [mapper section](#mapper)).
  *
  * @name   .parallel
- * @param  {Array|Object} `<iterable>` iterable object like array or object
+ * @param  {Array|Object} `<iterable>` iterable object like array or object with any type of values
  * @param  {Function} `[mapper]` function to map over values, see [mapper section](#mapper)
  * @param  {Object} `[options]` see [options section](#options)
  * @return {Promise}
