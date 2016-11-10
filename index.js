@@ -26,7 +26,9 @@ var each = module.exports
 each.serial = function eachSerial (iterable, mapper, options) {
   return compose(false)(iterable, mapper, options)
 }
-each.series = each.serial
+each.series = function eachSeries (iterable, mapper, options) {
+  return each.serial(iterable, mapper, options)
+}
 
 /**
  * > Iterate over `iterable` in parallel (support limiting with `options.concurrency`)

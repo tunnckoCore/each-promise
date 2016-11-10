@@ -41,10 +41,8 @@ utils.iterator = function iterator (arr, results) {
       var item = arr[index]
       options.beforeEach({ value: item, index: index }, index, arr)
 
-      var promise = typeof item === 'function'
-        ? item()
-        : options.Promise.resolve(item)
-
+      var val = typeof item === 'function' ? item() : item
+      var promise = options.Promise.resolve(val)
       var handle = utils.handleResults({
         arr: arr,
         index: index,
