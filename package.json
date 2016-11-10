@@ -1,7 +1,7 @@
 {
   "name": "each-promise",
   "version": "0.1.0",
-  "description": "wip",
+  "description": "Map over promises, promise-returning or async/await functions in series or parallel. Support settle (fail-fast), concurrency and hooks system (start, beforeEach, afterEach, finish)",
   "repository": "tunnckoCore/each-promise",
   "author": "Charlike Mike Reagent <@tunnckoCore> (http://www.tunnckocore.tk)",
   "precommit.silent": true,
