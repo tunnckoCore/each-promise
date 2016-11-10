@@ -67,7 +67,7 @@ var arr = [
 var settle = false
 each.parallel(arr/*, function mapper (item, index) {
   console.log(item, index)
-}*/, {
+} */, {
   concurrency: 5,
   settle: settle,
   start: function () {
