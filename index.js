@@ -48,7 +48,7 @@ var eachPromise = module.exports
  *
  * @name   .serial
  * @param  {Array|Object} `<iterable>` iterable object like array or object with any type of values
- * @param  {Function} `[mapper]` function to map over values, see [mapper section](#mapper)
+ * @param  {Function} `[mapper]` function to apply to each item in `iterable`, see [mapper section](#mapper)
  * @param  {Object} `[opts]` see [options section](#options)
  * @return {Promise}
  * @api public
@@ -130,7 +130,7 @@ eachPromise.serial = function eachSerial (iterable, mapper, opts) {
  *
  * @name   .parallel
  * @param  {Array|Object} `<iterable>` iterable object like array or object with any type of values
- * @param  {Function} `[mapper]` function to map over values, see [mapper section](#mapper)
+ * @param  {Function} `[mapper]` function to apply to each item in `iterable`,  see [mapper section](#mapper)
  * @param  {Object} `[opts]` see [options section](#options)
  * @return {Promise}
  * @api public
@@ -176,7 +176,7 @@ eachPromise.parallel = function eachParallel (iterable, mapper, opts) {
  *
  * @name   .each
  * @param  {Array|Object} `<iterable>` iterable object like array or object with any type of values
- * @param  {Function} `[mapper]` function to map over values, see [mapper section](#mapper)
+ * @param  {Function} `[mapper]` function to apply to each item in `iterable`,  see [mapper section](#mapper)
  * @param  {Object} `[opts]` see [options section](#options)
  * @return {Promise}
  * @api public

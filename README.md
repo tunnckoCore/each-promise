@@ -26,7 +26,7 @@ const eachPromise = require('each-promise')
 **Params**
 
 * `<iterable>` **{Array|Object}**: iterable object like array or object with any type of values    
-* `[mapper]` **{Function}**: function to map over values, see [mapper section](#mapper)    
+* `[mapper]` **{Function}**: function to apply to each item in `iterable`, see [mapper section](#mapper)    
 * `[opts]` **{Object}**: see [options section](#options)    
 * `returns` **{Promise}**  
 
@@ -67,7 +67,7 @@ eachPromise.serial(arr, { settle: false })
 **Params**
 
 * `<iterable>` **{Array|Object}**: iterable object like array or object with any type of values    
-* `[mapper]` **{Function}**: function to map over values, see [mapper section](#mapper)    
+* `[mapper]` **{Function}**: function to apply to each item in `iterable`,  see [mapper section](#mapper)    
 * `[opts]` **{Object}**: see [options section](#options)    
 * `returns` **{Promise}**  
 
@@ -138,7 +138,7 @@ eachPromise.parallel(arr).then((res) => {
 **Params**
 
 * `<iterable>` **{Array|Object}**: iterable object like array or object with any type of values    
-* `[mapper]` **{Function}**: function to map over values, see [mapper section](#mapper)    
+* `[mapper]` **{Function}**: function to apply to each item in `iterable`,  see [mapper section](#mapper)    
 * `[opts]` **{Object}**: see [options section](#options)    
 * `returns` **{Promise}**  
 
@@ -171,7 +171,7 @@ promise.then(function (res) {
 > You have control over everything, through options.
 
 * `Promise` **{Function}**: custom Promise constructor to be used, defaults to native
-* `mapper` **{Function}**: see [mapper section](#mapper)
+* `mapper` **{Function}**: function to apply to each item in `iterable`, see [mapper section](#mapper)
 * `settle` **{Boolean}**: if `false` stops after first error (also known as _"fail-fast"_ or _"bail"_), default `true`
 * `flat` **{Boolean}**: result array to contain only values, default `true`
 * `concurrency` **{Number}**: works only with `.parallel` method, defaults to `iterable` length
