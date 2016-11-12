@@ -56,9 +56,9 @@ var eachPromise = module.exports
 
 eachPromise.serial = function eachSerial (iterable, mapper, opts) {
   var options = utils.defaults(mapper, opts)
-  options = utils.extend({
+  options = utils.extend(options, {
     serial: true
-  }, options)
+  })
   return eachPromise.each(iterable, options.mapper, options)
 }
 
@@ -138,9 +138,9 @@ eachPromise.serial = function eachSerial (iterable, mapper, opts) {
 
 eachPromise.parallel = function eachParallel (iterable, mapper, opts) {
   var options = utils.defaults(mapper, opts)
-  return eachPromise.each(iterable, options.mapper, utils.extend({
+  return eachPromise.each(iterable, options.mapper, utils.extend(options, {
     serial: false
-  }, options))
+  }))
 }
 
 /**

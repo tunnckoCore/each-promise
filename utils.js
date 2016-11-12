@@ -61,14 +61,12 @@ utils.iterator = function iterator (arr, results) {
             return
           }
           next(index + options.concurrency)
-        })
-        .catch(function onrejected (err) {
-          if (!options.settle) {
+        }, function onrejected (err) {
+          if (options.settle === false) {
             options.finish(err, results)
             reject(err)
             return
           }
-          next(index + options.concurrency)
         })
     }
   }
@@ -89,7 +87,7 @@ utils.handleResults = function handleResults (config, options) {
       }
 
       config.results.push(options.flat ? ret[name] : ret)
-      if (!options.settle && ret.reason) {
+      if (options.settle === false && ret.reason) {
         throw val
       }
     }
