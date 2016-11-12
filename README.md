@@ -41,7 +41,7 @@ var arr = [
   () => delay(200).then(() => { throw Error('foo') }),
   () => delay(10).then(() => 3),
   () => delay(350).then(() => 4),
-  () => delay(150).then(() => 5),
+  () => delay(150).then(() => 5)
 ]
 
 eachPromise.serial(arr)
