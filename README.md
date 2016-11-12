@@ -20,31 +20,152 @@ const eachPromise = require('each-promise')
 
 ## API
 
-### [.serial/.series](index.js#L26)
-
-> Iterate over `iterable` in series (serially)
-with optional `options` (see [options section](#options))
-and optional `mapper` function (see [mapper section](#mapper)).
+### [.serial](index.js#L57)
+> Iterate over `iterable` in series (serially) with optional `opts` (see [options section](#options)) and optional `mapper` function (see [mapper section](#mapper)).
 
 **Params**
 
 * `<iterable>` **{Array|Object}**: iterable object like array or object with any type of values    
 * `[mapper]` **{Function}**: function to map over values, see [mapper section](#mapper)    
-* `[options]` **{Object}**: see [options section](#options)    
+* `[opts]` **{Object}**: see [options section](#options)    
 * `returns` **{Promise}**  
 
-### [.parallel](index.js#L44)
+**Example**
 
-> Iterate over `iterable` in parallel (support limiting with `options.concurrency`)
-with optional `options` (see [options section](#options))
-and optional `mapper` function (see [mapper section](#mapper)).
+```js
+var delay = require('delay')
+var eachPromise = require('each-promise')
+
+var arr = [
+  () => delay(500).then(() => 1),
+  () => delay(200).then(() => { throw Error('foo') }),
+  () => delay(10).then(() => 3),
+  () => delay(350).then(() => 4),
+  () => delay(150).then(() => 5),
+]
+
+eachPromise.serial(arr)
+.then((res) => {
+  console.log(res) // [1, Error: foo, 3, 4, 5]
+})
+
+// see what happens when parallel
+eachPromise.parallel(arr)
+.then((res) => {
+  console.log(res) // => [3, 5, Error: foo, 4, 1]
+})
+
+// pass `settle: false` if you want
+// to stop after first error
+eachPromise.serial(arr, { settle: false })
+.catch((err) => console.log(err)) // => Error: foo
+```
+
+### [.parallel](index.js#L139)
+> Iterate concurrently over `iterable` in parallel (support limiting with `opts.concurrency`) with optional `opts` (see [options section](#options)) and optional `mapper` function (see [mapper section](#mapper)).
 
 **Params**
 
 * `<iterable>` **{Array|Object}**: iterable object like array or object with any type of values    
 * `[mapper]` **{Function}**: function to map over values, see [mapper section](#mapper)    
-* `[options]` **{Object}**: see [options section](#options)    
+* `[opts]` **{Object}**: see [options section](#options)    
 * `returns` **{Promise}**  
+
+**Example**
+
+```js
+var eachPromise = require('each-promise')
+
+var arr = [
+  function one () {
+    return delay(200).then(() => {
+      return 123
+    })
+  },
+  Promise.resolve('foobar'),
+  function two () {
+    return delay(1500).then(() => {
+      return 345
+    })
+  },
+  delay(10).then(() => 'zero'),
+  function three () {
+    return delay(400).then(() => {
+      coffffnsole.log(3) // eslint-disable-line no-undef
+      return 567
+    })
+  },
+  'abc',
+  function four () {
+    return delay(250).then(() => {
+      return 789
+    })
+  },
+  function five () {
+    return delay(100).then(() => {
+      sasasa // eslint-disable-line no-undef
+      return 444
+    })
+  },
+  function six () {
+    return delay(80).then(() => {
+      return 'last'
+    })
+  }
+]
+
+// does not stop after first error
+// pass `settle: false` if you want
+eachPromise.parallel(arr).then((res) => {
+  console.log(res)
+  // => [
+  //   'foobar',
+  //   'abc',
+  //   'zero',
+  //   'last',
+  //   ReferenceError: sasasa is not defined,
+  //   123,
+  //   789,
+  //   ReferenceError: coffffnsole is not defined
+  //   345
+  // ]
+})
+```
+
+### [.each](index.js#L185)
+> Iterate over `iterable` in series or parallel (default), depending on default `opts`. Pass `opts.serial: true` if you want to iterate in series, pass `opts.serial: false` or does not pass anything for parallel.
+
+**Params**
+
+* `<iterable>` **{Array|Object}**: iterable object like array or object with any type of values    
+* `[mapper]` **{Function}**: function to map over values, see [mapper section](#mapper)    
+* `[opts]` **{Object}**: see [options section](#options)    
+* `returns` **{Promise}**  
+
+**Example**
+
+```js
+var delay = require('delay')
+var eachPromise = require('each-promise')
+
+var promise = eachPromise.each([
+  123,
+  function () {
+    return delay(500).then(() => 456)
+  },
+  Promise.resolve(678),
+  function () {
+    return 999
+  },
+  function () {
+    return delay(200).then(() => 'foo')
+  }
+])
+
+promise.then(function (res) {
+  console.log('done', res) // => [123, 678, 999, 'foo', 456]
+})
+```
 
 ## Options
 > You have control over everything, through options.

@@ -36,7 +36,7 @@ test('should return rejected promise if `iterable` not an object or array', func
 })
 
 test('should resolve any type of values from iterable', function () {
-  return eachPromise.series(fixtureOne).then(function (res) {
+  return eachPromise.serial(fixtureOne).then(function (res) {
     test.strictEqual(res.length, 7)
     test.deepEqual(res, [
       123,
