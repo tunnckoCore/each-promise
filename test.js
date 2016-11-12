@@ -10,3 +10,4 @@
 'use strict'
 
 require('./test/serial')
+require('./test/parallel')
