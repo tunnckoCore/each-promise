@@ -19,7 +19,7 @@ utils.defaults = function defaults (mapper, opts) {
     Promise: Promise,
     settle: true,
     flat: true,
-    parallel: false,
+    serial: false,
     concurrency: false,
     start: function startHook () {},
     beforeEach: function beforeEachHook () {},

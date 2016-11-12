@@ -24,7 +24,7 @@ var each = module.exports
  */
 
 each.serial = function eachSerial (iterable, mapper, options) {
-  return compose(false)(iterable, mapper, options)
+  return compose(true)(iterable, mapper, options)
 }
 each.series = function eachSeries (iterable, mapper, options) {
   return each.serial(iterable, mapper, options)
@@ -44,18 +44,17 @@ each.series = function eachSeries (iterable, mapper, options) {
  */
 
 each.parallel = function eachParallel (iterable, mapper, options) {
-  var parallel = compose(true)
+  var parallel = compose(false)
   return parallel(iterable, mapper, options)
 }
 
-function compose (parallel) {
+function compose (serial) {
   return function flow (iterable, mapper, opts) {
     if (typeof iterable !== 'object') {
       var err = new TypeError('expect `iterable` to be array, iterable or object')
       return Promise.reject(err)
     }
     var options = utils.defaults(mapper, opts)
-    options.parallel = parallel
     return eachPromise(iterable, options)
   }
 }
@@ -71,11 +70,11 @@ function eachPromise (iterable, opts) {
         arr.push(iterable[key])
       }
     }
-    opts.concurrency = opts.parallel ? opts.concurrency : 1
+    opts.concurrency = opts.serail === false ? opts.concurrency : 1
     opts.concurrency = opts.concurrency || arr.length
 
     opts.start()
-    if (opts.parallel) {
+    if (opts.serail) {
       for (var index = 0; index < opts.concurrency; index++) {
         utils.iterator(arr, results)(opts, resolve, reject)(index)
       }
