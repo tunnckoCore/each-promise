@@ -42,7 +42,10 @@ utils.iterator = function iterator (arr, results) {
       options.beforeEach({ value: item, index: index }, index, arr)
 
       var val = typeof item === 'function' ? item() : item
-      var promise = options.Promise.resolve(val)
+      var promise = val instanceof Error
+        ? options.Promise.reject(val)
+        : options.Promise.resolve(val)
+
       var handle = utils.handleResults({
         arr: arr,
         index: index,
