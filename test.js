@@ -9,4 +9,4 @@
 
 'use strict'
 
-require('./test/series')
+require('./test/serial')
