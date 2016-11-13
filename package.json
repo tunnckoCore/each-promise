@@ -77,7 +77,12 @@
       "dezalgo",
       "minibase",
       "once",
-      "try-catch-core"
+      "try-catch-core",
+      "p-each-series",
+      "p-map",
+      "p-map-series",
+      "p-reduce",
+      "p-settle"
     ]
   }
 }

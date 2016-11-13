@@ -7,6 +7,9 @@
 ## Table of Contents
 - [Install](#install)
 - [Usage](#usage)
+- [Background](#background)
+  * [Why not "promise fun"?](#why-not-promise-fun)
+  * [Why not separate libs?](#why-not-separate-libs)
 - [API](#api)
   * [.serial](#serial)
   * [.parallel](#parallel)
@@ -43,6 +46,35 @@ eachPromise.serial(arr).then((res) => {
   console.log(res) // => [123, 'foo', 456, 567, false, 11]
 })
 ```
+
+## Background
+You may think why this exists, what is this for, why not Sindre's microlibs like [p-map][], [p-map-series][], [p-settle][], [p-each-series][] or [p-reduce][].
+
+### Why not "promise fun"?
+They do their jobs okey, but in some cases they don't. And that's the my case. I need control over _"fast fail"_ behavior, also known as _"settle"_ or _"bail"_. I need serial and parallel iteration, but parallel with concurrency too. They requires node v4, and uses native Promise constructor. I believe in that we should not use modern things if we don't need them, it is just syntax sugar. This package is written in way that works in node versions below v4 and also you can pass custom Promise constructor through [options.Promise](#options) if you want.
+
+- :negative_squared_cross_mark: node@4 required
+- :negative_squared_cross_mark: hooks system
+- :negative_squared_cross_mark: settle / fail-fast / bail
+- :negative_squared_cross_mark: custom Promise
+- :negative_squared_cross_mark: no real and meaningful tests
+- :white_check_mark: concurrency control
+
+**[back to top](#readme)**
+
+### Why not separate libs?
+Why not separate `.serial` and `.parallel` into own libs like Sindre did? Because the main core logic and difference is absolutely in just 2-3 lines of code and one `if` check. The main thing is that `parallel` uses `for` loop with `concurrency` combination, and `series` does not use loops, but recursive function calls.
+
+For free you get hooks system. And really it cost nothing. It just able to be done, because the structure of the code and because I need such thing.
+
+- :white_check_mark: node v0.10 and above
+- :white_check_mark: custom Promise constructor
+- :white_check_mark: real settle / fail fast
+- :white_check_mark: hook system, through options
+- :white_check_mark: very stable and well tested with real tests
+- :white_check_mark: concurrency control
+
+**[back to top](#readme)**
 
 ## API
 
@@ -264,6 +296,11 @@ But before doing anything, please read the [CONTRIBUTING.md](./CONTRIBUTING.md) 
 [dezalgo]: https://github.com/npm/dezalgo
 [minibase]: https://github.com/node-minibase/minibase
 [once]: https://github.com/isaacs/once
+[p-each-series]: https://github.com/sindresorhus/p-each-series
+[p-map-series]: https://github.com/sindresorhus/p-map-series
+[p-map]: https://github.com/sindresorhus/p-map
+[p-reduce]: https://github.com/sindresorhus/p-reduce
+[p-settle]: https://github.com/sindresorhus/p-settle
 [try-catch-core]: https://github.com/hybridables/try-catch-core
 
 [npmjs-url]: https://www.npmjs.com/package/each-promise
