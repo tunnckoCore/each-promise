@@ -13,7 +13,7 @@ var eachPromise = module.exports
 /**
  * > Iterate over `iterable` in series (serially)
  * with optional `opts` (see [options section](#options))
- * and optional `mapper` function (see [mapper section](#mapper)).
+ * and optional `mapper` function (see [item section](#item)).
  *
  * **Example**
  *
@@ -48,7 +48,7 @@ var eachPromise = module.exports
  *
  * @name   .serial
  * @param  {Array|Object} `<iterable>` iterable object like array or object with any type of values
- * @param  {Function} `[mapper]` function to apply to each item in `iterable`, see [mapper section](#mapper)
+ * @param  {Function} `[mapper]` function to apply to each item in `iterable`, see [item section](#item)
  * @param  {Object} `[opts]` see [options section](#options)
  * @return {Promise}
  * @api public
@@ -65,7 +65,7 @@ eachPromise.serial = function eachSerial (iterable, mapper, opts) {
 /**
  * > Iterate concurrently over `iterable` in parallel (support limiting with `opts.concurrency`)
  * with optional `opts` (see [options section](#options))
- * and optional `mapper` function (see [mapper section](#mapper)).
+ * and optional `mapper` function (see [item section](#item)).
  *
  * **Example**
  *
@@ -130,7 +130,7 @@ eachPromise.serial = function eachSerial (iterable, mapper, opts) {
  *
  * @name   .parallel
  * @param  {Array|Object} `<iterable>` iterable object like array or object with any type of values
- * @param  {Function} `[mapper]` function to apply to each item in `iterable`,  see [mapper section](#mapper)
+ * @param  {Function} `[mapper]` function to apply to each item in `iterable`, see [item section](#item)
  * @param  {Object} `[opts]` see [options section](#options)
  * @return {Promise}
  * @api public
@@ -176,7 +176,7 @@ eachPromise.parallel = function eachParallel (iterable, mapper, opts) {
  *
  * @name   .each
  * @param  {Array|Object} `<iterable>` iterable object like array or object with any type of values
- * @param  {Function} `[mapper]` function to apply to each item in `iterable`,  see [mapper section](#mapper)
+ * @param  {Function} `[mapper]` function to apply to each item in `iterable`, see [item section](#item)
  * @param  {Object} `[opts]` see [options section](#options)
  * @return {Promise}
  * @api public

@@ -21,12 +21,12 @@ const eachPromise = require('each-promise')
 ## API
 
 ### [.serial](index.js#L57)
-> Iterate over `iterable` in series (serially) with optional `opts` (see [options section](#options)) and optional `mapper` function (see [mapper section](#mapper)).
+> Iterate over `iterable` in series (serially) with optional `opts` (see [options section](#options)) and optional `mapper` function (see [item section](#item)).
 
 **Params**
 
 * `<iterable>` **{Array|Object}**: iterable object like array or object with any type of values    
-* `[mapper]` **{Function}**: function to apply to each item in `iterable`, see [mapper section](#mapper)    
+* `[mapper]` **{Function}**: function to apply to each item in `iterable`, see [item section](#item)    
 * `[opts]` **{Object}**: see [options section](#options)    
 * `returns` **{Promise}**  
 
@@ -62,12 +62,12 @@ eachPromise.serial(arr, { settle: false })
 ```
 
 ### [.parallel](index.js#L139)
-> Iterate concurrently over `iterable` in parallel (support limiting with `opts.concurrency`) with optional `opts` (see [options section](#options)) and optional `mapper` function (see [mapper section](#mapper)).
+> Iterate concurrently over `iterable` in parallel (support limiting with `opts.concurrency`) with optional `opts` (see [options section](#options)) and optional `mapper` function (see [item section](#item)).
 
 **Params**
 
 * `<iterable>` **{Array|Object}**: iterable object like array or object with any type of values    
-* `[mapper]` **{Function}**: function to apply to each item in `iterable`,  see [mapper section](#mapper)    
+* `[mapper]` **{Function}**: function to apply to each item in `iterable`, see [item section](#item)    
 * `[opts]` **{Object}**: see [options section](#options)    
 * `returns` **{Promise}**  
 
@@ -138,7 +138,7 @@ eachPromise.parallel(arr).then((res) => {
 **Params**
 
 * `<iterable>` **{Array|Object}**: iterable object like array or object with any type of values    
-* `[mapper]` **{Function}**: function to apply to each item in `iterable`,  see [mapper section](#mapper)    
+* `[mapper]` **{Function}**: function to apply to each item in `iterable`, see [item section](#item)    
 * `[opts]` **{Object}**: see [options section](#options)    
 * `returns` **{Promise}**  
 
@@ -171,25 +171,41 @@ promise.then(function (res) {
 > You have control over everything, through options.
 
 * `Promise` **{Function}**: custom Promise constructor to be used, defaults to native
-* `mapper` **{Function}**: function to apply to each item in `iterable`, see [mapper section](#mapper)
+* `mapper` **{Function}**: function to apply to each item in `iterable`, see [item section](#item)
 * `settle` **{Boolean}**: if `false` stops after first error (also known as _"fail-fast"_ or _"bail"_), default `true`
 * `flat` **{Boolean}**: result array to contain only values, default `true`
 * `concurrency` **{Number}**: works only with `.parallel` method, defaults to `iterable` length
-* `start` **{Function}**: on start hook, called once at the begining of iteration
-* `beforeEach` **{Function}**: called before each item in `iterable`,
-  + passed with `item, index, arr` arguments
-  + where `item.value` may be resolved/rejected value **or function**
-  + may `item.reason` exists with error object, if exists then `item.value` not exists
-  + where `item.index` is number, order
-* `afterEach` **{Function}**: called after each item in `iterable`
-  + passed with `item, index, arr` arguments
-  + where `item.value` may be resolved/rejected value
-  + may `item.reason` exists with error object, if exists then `item.value` not exists
-  + where `item.index` is number, order
-* `finish` **{Function}**: called at the end of iteration, passed with `err, result` arguments, where the `result` can be one of:
-  + array of resolved/rejected values
-  + array of `item` objects if `flat: false`
-  + array of what you returned from `mapper` function
+* `start` **{Function}**: on start hook, see [hooks section](#hooks)
+* `beforeEach` **{Function}**: called before each item in `iterable`, see [hooks section](#hooks)
+* `afterEach` **{Function}**: called after each item in `iterable`, see [hooks section](#hooks)
+* `finish` **{Function}**: called at the end of iteration, see [hooks section](#hooks)
+
+## Hooks
+> You can do what you want between stages through hooks - start, before each, after each, finish.
+
+* `start` **{Function}**: called at the start of iteration, before anything
+* `beforeEach` **{Function}**: passed with `item, index, arr` arguments
+  + `item` is an object with `value`, `reason` and `index` properties, see [item section](#item)
+  + `index` is the same as `item.index`
+  + `arr` is the iterable object - array or object
+* `afterEach` **{Function}**: passed with `item, index, arr` arguments
+  + `item` is an object with `value`, `reason` and `index` properties, see [item section](#item)
+  + `index` is the same as `item.index`
+  + `arr` is the iterable object - array or object
+* `finish` **{Function}**: called at the end of iteration, see [finish hook section](#finish-hook)
+
+## Item
+> That object is special object, that is passed to `beforeEach` and `afterEach` hooks, also can be found in `result` object if you pass `opts.flat: false` option. And passed to `opts.mapper` function too.
+
+* `item.value` resolved/rejected promise value, if at `beforeEach` hook it can be `function`
+* `item.reason` may not exist if `item.value`, if exist it is standard Error object
+* `item.index` is number, order of "executing", not the order that is defined in `iterable`
+
+## Finish hook
+> This hooks is called when everything is finished / completed. At the very end of iteration. It is passed with `err, result` arguments where:
+
+* `err` is an Error object, if `opts.settle: false`, otherwise `null`
+* `result` is always an array with values or [item objects](#item) if `opts.flat: false`
 
 ## Contributing
 Pull requests and stars are always welcome. For bugs and feature requests, [please create an issue](https://github.com/tunnckoCore/each-promise/issues/new).  
