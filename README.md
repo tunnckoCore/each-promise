@@ -30,6 +30,18 @@ $ npm i each-promise --save
 
 ```js
 const eachPromise = require('each-promise')
+const arr = [
+  123,
+  'foo',
+  () => 456,
+  Promise.resolve(567)
+  false,
+  () => Promise.resolve(11)
+]
+
+eachPromise.serial(arr).then((res) => {
+  console.log(res) // => [123, 'foo', 456, 567, false, 11]
+})
 ```
 
 ## API
