@@ -47,13 +47,37 @@
   },
   "verb": {
     "run": true,
-    "toc": true,
+    "toc": {
+      "render": true,
+      "method": "preWrite",
+      "maxdepth": 3
+    },
     "layout": "empty",
     "tasks": [
       "readme"
     ],
+    "related": {
+      "list": [
+        "minibase",
+        "minibase-is-registered",
+        "minibase-create-plugin",
+        "always-done",
+        "mukla",
+        "try-catch-callback",
+        "try-catch-core"
+      ]
+    },
     "lint": {
       "reflinks": true
-    }
+    },
+    "reflinks": [
+      "always-done",
+      "async-done",
+      "base",
+      "dezalgo",
+      "minibase",
+      "once",
+      "try-catch-core"
+    ]
   }
 }

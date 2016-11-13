@@ -4,6 +4,20 @@
 
 [![code climate][codeclimate-img]][codeclimate-url] [![standard code style][standard-img]][standard-url] [![travis build status][travis-img]][travis-url] [![coverage status][coveralls-img]][coveralls-url] [![dependency status][david-img]][david-url]
 
+## Table of Contents
+- [Install](#install)
+- [Usage](#usage)
+- [API](#api)
+  * [.serial](#serial)
+  * [.parallel](#parallel)
+  * [.each](#each)
+- [Options](#options)
+- [Hooks](#hooks)
+- [Item](#item)
+- [Finish hook](#finish-hook)
+- [Related](#related)
+- [Contributing](#contributing)
+
 ## Install
 > Install with [npm](https://www.npmjs.com/)
 
@@ -180,6 +194,8 @@ promise.then(function (res) {
 * `afterEach` **{Function}**: called after each item in `iterable`, see [hooks section](#hooks)
 * `finish` **{Function}**: called at the end of iteration, see [hooks section](#hooks)
 
+**[back to top](#readme)**
+
 ## Hooks
 > You can do what you want between stages through hooks - start, before each, after each, finish.
 
@@ -194,6 +210,8 @@ promise.then(function (res) {
   + `arr` is the iterable object - array or object
 * `finish` **{Function}**: called at the end of iteration, see [finish hook section](#finish-hook)
 
+**[back to top](#readme)**
+
 ## Item
 > That object is special object, that is passed to `beforeEach` and `afterEach` hooks, also can be found in `result` object if you pass `opts.flat: false` option. And passed to `opts.mapper` function too.
 
@@ -201,11 +219,24 @@ promise.then(function (res) {
 * `item.reason` may not exist if `item.value`, if exist it is standard Error object
 * `item.index` is number, order of "executing", not the order that is defined in `iterable`
 
+**[back to top](#readme)**
+
 ## Finish hook
 > This hooks is called when everything is finished / completed. At the very end of iteration. It is passed with `err, result` arguments where:
 
 * `err` is an Error object, if `opts.settle: false`, otherwise `null`
 * `result` is always an array with values or [item objects](#item) if `opts.flat: false`
+
+**[back to top](#readme)**
+
+## Related
+- [always-done](https://www.npmjs.com/package/always-done): Handle completion and errors with elegance! Support for streams, callbacks, promises, child processes, async/await and sync functions. A… [more](https://github.com/hybridables/always-done#readme) | [homepage](https://github.com/hybridables/always-done#readme "Handle completion and errors with elegance! Support for streams, callbacks, promises, child processes, async/await and sync functions. A drop-in replacement for [async-done][] - pass 100% of its tests plus more")
+- [minibase-create-plugin](https://www.npmjs.com/package/minibase-create-plugin): Utility for [minibase][] and [base][] that helps you create plugins | [homepage](https://github.com/node-minibase/minibase-create-plugin#readme "Utility for [minibase][] and [base][] that helps you create plugins")
+- [minibase-is-registered](https://www.npmjs.com/package/minibase-is-registered): Plugin for [minibase][] and [base][], that adds `isRegistered` method to your application to detect if plugin is already… [more](https://github.com/node-minibase/minibase-is-registered#readme) | [homepage](https://github.com/node-minibase/minibase-is-registered#readme "Plugin for [minibase][] and [base][], that adds `isRegistered` method to your application to detect if plugin is already registered and returns true or false if named plugin is already registered on the instance.")
+- [minibase](https://www.npmjs.com/package/minibase): MiniBase is minimalist approach to Base - @node-base, the awesome framework. Foundation for building complex APIs with small… [more](https://github.com/node-minibase/minibase#readme) | [homepage](https://github.com/node-minibase/minibase#readme "MiniBase is minimalist approach to Base - @node-base, the awesome framework. Foundation for building complex APIs with small units called plugins. Works well with most of the already existing [base][] plugins.")
+- [mukla](https://www.npmjs.com/package/mukla): Small, parallel and fast test framework with suppport for async/await, promises, callbacks, streams and observables. Targets and works… [more](https://github.com/tunnckocore/mukla#readme) | [homepage](https://github.com/tunnckocore/mukla#readme "Small, parallel and fast test framework with suppport for async/await, promises, callbacks, streams and observables. Targets and works at node.js v0.10 and above.")
+- [try-catch-callback](https://www.npmjs.com/package/try-catch-callback): try/catch block with a callback, used in [try-catch-core][]. Use it when you don't care about asyncness so much… [more](https://github.com/hybridables/try-catch-callback#readme) | [homepage](https://github.com/hybridables/try-catch-callback#readme "try/catch block with a callback, used in [try-catch-core][]. Use it when you don't care about asyncness so much and don't want guarantees. If you care use [try-catch-core][].")
+- [try-catch-core](https://www.npmjs.com/package/try-catch-core): Low-level package to handle completion and errors of sync or asynchronous functions, using [once][] and [dezalgo][] libs. Useful… [more](https://github.com/hybridables/try-catch-core#readme) | [homepage](https://github.com/hybridables/try-catch-core#readme "Low-level package to handle completion and errors of sync or asynchronous functions, using [once][] and [dezalgo][] libs. Useful for and used in higher-level libs such as [always-done][] to handle completion of anything.")
 
 ## Contributing
 Pull requests and stars are always welcome. For bugs and feature requests, [please create an issue](https://github.com/tunnckoCore/each-promise/issues/new).  
@@ -214,6 +245,14 @@ But before doing anything, please read the [CONTRIBUTING.md](./CONTRIBUTING.md) 
 ## [Charlike Make Reagent](http://j.mp/1stW47C) [![new message to charlike][new-message-img]][new-message-url] [![freenode #charlike][freenode-img]][freenode-url]
 
 [![tunnckoCore.tk][author-www-img]][author-www-url] [![keybase tunnckoCore][keybase-img]][keybase-url] [![tunnckoCore npm][author-npm-img]][author-npm-url] [![tunnckoCore twitter][author-twitter-img]][author-twitter-url] [![tunnckoCore github][author-github-img]][author-github-url]
+
+[always-done]: https://github.com/hybridables/always-done
+[async-done]: https://github.com/gulpjs/async-done
+[base]: https://github.com/node-base/base
+[dezalgo]: https://github.com/npm/dezalgo
+[minibase]: https://github.com/node-minibase/minibase
+[once]: https://github.com/isaacs/once
+[try-catch-core]: https://github.com/hybridables/try-catch-core
 
 [npmjs-url]: https://www.npmjs.com/package/each-promise
 [npmjs-img]: https://img.shields.io/npm/v/each-promise.svg?label=each-promise
