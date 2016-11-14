@@ -9,6 +9,7 @@ require = utils // eslint-disable-line no-undef, no-native-reassign, no-global-a
  */
 
 require('extend-shallow', 'extend')
+require('native-promise', 'Promise')
 require = fn // eslint-disable-line no-undef, no-native-reassign, no-global-assign
 
 utils.defaults = function defaults (mapper, opts) {
@@ -16,7 +17,7 @@ utils.defaults = function defaults (mapper, opts) {
     ? mapper
     : (opts && typeof opts === 'object' ? opts : {})
   options = utils.extend({
-    Promise: Promise,
+    Promise: utils.Promise,
     settle: true,
     flat: true,
     serial: false,
