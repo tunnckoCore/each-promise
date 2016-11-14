@@ -1,6 +1,6 @@
 {
   "name": "each-promise",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Iterate over promises, promise-returning or async/await functions in series or parallel. Support settle (fail-fast), concurrency (limiting) and hooks system (start, beforeEach, afterEach, finish)",
   "repository": "tunnckoCore/each-promise",
   "author": "Charlike Mike Reagent <@tunnckoCore> (http://www.tunnckocore.tk)",
