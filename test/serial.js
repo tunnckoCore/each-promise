@@ -159,3 +159,16 @@ test('should `.serial` not have flat results when `flat: false`', function () {
     test.strictEqual(res[1].value, 222)
   })
 })
+
+test('should `.serial` catch when sync throw in settle:true mode', function () {
+  return eachPromise.serial([
+    () => 123,
+    () => { throw new Error('sync fn throws') },
+    () => ({ a: 'b' })
+  ]).then(function (res) {
+    test.strictEqual(res.length, 3)
+    test.strictEqual(res[0], 123)
+    test.strictEqual(res[1].message, 'sync fn throws')
+    test.strictEqual(res[2].a, 'b')
+  })
+})
