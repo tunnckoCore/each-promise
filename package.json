@@ -22,7 +22,6 @@
   },
   "dependencies": {
     "extend-shallow": "^2.0.1",
-    "is-promise": "^2.1.0",
     "lazy-cache": "^2.0.2",
     "native-promise": "^1.0.1",
     "try-catch-core": "^2.0.2"

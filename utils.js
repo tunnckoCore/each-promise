@@ -8,7 +8,6 @@ require = utils // eslint-disable-line no-undef, no-native-reassign, no-global-a
  * Lazily required module dependencies
  */
 
-require('is-promise')
 require('try-catch-core')
 require('extend-shallow', 'extend')
 require('native-promise', 'Promise')
