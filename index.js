@@ -8,7 +8,7 @@
 'use strict'
 
 var utils = require('./utils')
-var eachPromise = module.exports
+var eachPromise = {}
 
 /**
  * > Iterate over `iterable` in series (serially)
@@ -226,3 +226,4 @@ function promiseEach (iterable, opts) {
   })
 }
 
+module.exports = eachPromise

@@ -1,17 +1,20 @@
-'use strict'
-
-var utils = require('lazy-cache')(require)
-var fn = require
-require = utils // eslint-disable-line no-undef, no-native-reassign, no-global-assign
-
-/**
- * Lazily required module dependencies
+/*!
+ * each-promise <https://github.com/tunnckoCore/each-promise>
+ *
+ * Copyright (c) Charlike Mike Reagent <@tunnckoCore> (http://www.tunnckocore.tk)
+ * Released under the MIT license.
  */
 
-require('try-catch-core')
-require('extend-shallow', 'extend')
-require('native-promise', 'Promise')
-require = fn // eslint-disable-line no-undef, no-native-reassign, no-global-assign
+'use strict'
+
+var tryCatchCore = require('try-catch-core')
+var extendShallow = require('extend-shallow')
+var nativePromise = require('native-promise')
+
+var utils = {}
+utils.tryCatchCore = tryCatchCore
+utils.extend = extendShallow
+utils.Promise = nativePromise
 
 utils.defaults = function defaults (mapper, opts) {
   var options = null
@@ -118,7 +121,7 @@ utils.handleResults = function handleResults (config, options) {
 }
 
 /**
- * Expose `utils` modules
+ * Expose `utils` module
  */
 
 module.exports = utils
