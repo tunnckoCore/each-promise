@@ -8,6 +8,8 @@ require = utils // eslint-disable-line no-undef, no-native-reassign, no-global-a
  * Lazily required module dependencies
  */
 
+require('is-promise')
+require('try-catch-core')
 require('extend-shallow', 'extend')
 require('native-promise', 'Promise')
 require = fn // eslint-disable-line no-undef, no-native-reassign, no-global-assign
@@ -32,6 +34,17 @@ utils.defaults = function defaults (mapper, opts) {
   return options
 }
 
+utils.tryCatch = function tryCatch (fn, options) {
+  return new options.Promise(function (resolve, reject) {
+    utils.tryCatchCore(fn, options, function (err, res) {
+      if (err || res instanceof Error) {
+        return reject(err || res)
+      }
+      return resolve(res)
+    })
+  })
+}
+
 utils.iterator = function iterator (arr, results) {
   return function (options, resolve, reject) {
     return function next (index) {
@@ -42,7 +55,10 @@ utils.iterator = function iterator (arr, results) {
       var item = arr[index]
       options.beforeEach({ value: item, index: index }, index, arr)
 
-      var val = typeof item === 'function' ? item() : item
+      var val = typeof item === 'function'
+        ? utils.tryCatch(item, options)
+        : item
+
       var promise = val instanceof Error
         ? options.Promise.reject(val)
         : options.Promise.resolve(val)
@@ -63,6 +79,7 @@ utils.iterator = function iterator (arr, results) {
           }
           next(index + options.concurrency)
         }, function onrejected (err) {
+          /* istanbul ignore next */
           if (options.settle === false) {
             options.finish(err, results)
             reject(err)

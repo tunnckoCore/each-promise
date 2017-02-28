@@ -37,7 +37,7 @@ var fixtureTwo = function () {
   ]
 }
 
-test('should `.serial` return rejected promise if `iterable` not an object or array', function () {
+test('should `.serial` return rejected promise if not an `iterable`', function () {
   return eachPromise.serial(123).catch(function (err) {
     test.strictEqual(err.name, 'TypeError')
     test.strictEqual(err.message, 'expect `iterable` to be array, iterable or object')
@@ -100,14 +100,62 @@ test('should `.serial` accept `iterable` object', function (done) {
     a: 123,
     b: Promise.reject(new Error('qux')),
     c: () => 456,
-    d: () => Promise.resolve(567)
+    d: () => Promise.resolve(567),
+    e: () => new Error('zzz1'),
+    f: new Error('zzz2')
   }
   eachPromise.serial(fixtureObj).then(function (res) {
-    test.strictEqual(res.length, 4)
+    test.strictEqual(res.length, 6)
     test.strictEqual(res[0], 123)
     test.strictEqual(res[1].name, 'Error')
     test.strictEqual(res[2], 456)
     test.strictEqual(res[3], 567)
+    test.strictEqual(res[4].message, 'zzz1')
+    test.strictEqual(res[5].message, 'zzz2')
     done()
+  })
+})
+
+test('should `.serial` catch returned rejected promise', function () {
+  return eachPromise.serial([
+    function () {
+      return Promise.reject(new Error('foo bar qux'))
+    }
+  ], { settle: false }).catch(function (err) {
+    test.strictEqual(err.name, 'Error')
+    test.strictEqual(err.message, 'foo bar qux')
+  })
+})
+
+test('should `.serial` catch thrown errors', function () {
+  var fnThrows = function () {
+    zaz // eslint-disable-line no-undef
+  }
+
+  return eachPromise.serial([fnThrows], {
+    settle: false
+  }).catch(function (err) {
+    test.strictEqual(/zaz is not defined/.test(err.message), true)
+    test.strictEqual(err.name, 'ReferenceError')
+  })
+})
+
+test('should `.serial` catch returned errors', function () {
+  var fn = function () { return new Error('xyz') }
+  var opts = { settle: false }
+
+  return eachPromise.serial([fn], opts).catch(function (err) {
+    test.strictEqual(err.name, 'Error')
+    test.strictEqual(err.message, 'xyz')
+  })
+})
+
+test('should `.serial` not have flat results when `flat: false`', function () {
+  return eachPromise.each([() => 111, () => 222], {
+    flat: false
+  }).then(function (res) {
+    test.strictEqual(res.length, 2)
+    test.strictEqual(res[0].value, 111)
+    test.strictEqual(res[1].value, 222)
   })
 })
