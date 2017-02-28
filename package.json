@@ -113,12 +113,17 @@
       "dezalgo",
       "minibase",
       "once",
-      "try-catch-core",
       "p-each-series",
       "p-map",
       "p-map-series",
       "p-reduce",
-      "p-settle"
+      "p-settle",
+      "try-catch-core",
+      "charlike",
+      "commitizen",
+      "standard-version",
+      "verb",
+      "verb-generate-readme"
     ]
   },
   "nyc": {
