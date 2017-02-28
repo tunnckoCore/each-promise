@@ -15,9 +15,13 @@ require('native-promise', 'Promise')
 require = fn // eslint-disable-line no-undef, no-native-reassign, no-global-assign
 
 utils.defaults = function defaults (mapper, opts) {
-  var options = mapper && typeof mapper === 'object'
-    ? mapper
-    : (opts && typeof opts === 'object' ? opts : {})
+  var options = null
+
+  if (mapper && typeof mapper === 'object') {
+    options = mapper
+    mapper = null
+  }
+  options = utils.extend({}, options, opts)
   options = utils.extend({
     Promise: utils.Promise,
     settle: true,
@@ -27,10 +31,12 @@ utils.defaults = function defaults (mapper, opts) {
     start: function startHook () {},
     beforeEach: function beforeEachHook () {},
     afterEach: function afterEachHook () {},
-    finish: function finishHook () {},
-    mapper: mapper
+    finish: function finishHook () {}
   }, options)
-  options.mapper = options.mapper || mapper
+
+  mapper = options.mapper || mapper
+  options.mapper = typeof mapper === 'function' ? mapper : false
+
   return options
 }
 
