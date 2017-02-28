@@ -254,6 +254,9 @@ promise.then(function (res) {
 * `beforeEach` **{Function}**: called before each item in `iterable`, see [hooks section](#hooks)
 * `afterEach` **{Function}**: called after each item in `iterable`, see [hooks section](#hooks)
 * `finish` **{Function}**: called at the end of iteration, see [hooks section](#hooks)
+* `context` **{Object}**: custom context to be passed to each `fn` in `iterable`
+* `args` **{Array}**: custom argument(s) to be pass to `fn`, given value is arrayified
+* `passCallback` **{Boolean}**: automatically `true` if `fn` has some of [common-callback-names][]
 
 **[back to top](#readme)**
 
@@ -347,6 +350,8 @@ _Project scaffolded using [charlike][] cli._
 [always-done]: https://github.com/hybridables/always-done
 [async-done]: https://github.com/gulpjs/async-done
 [base]: https://github.com/node-base/base
+[charlike]: https://github.com/tunnckocore/charlike
+[commitizen]: https://github.com/commitizen/cz-cli
 [dezalgo]: https://github.com/npm/dezalgo
 [minibase]: https://github.com/node-minibase/minibase
 [once]: https://github.com/isaacs/once
@@ -355,7 +360,10 @@ _Project scaffolded using [charlike][] cli._
 [p-map]: https://github.com/sindresorhus/p-map
 [p-reduce]: https://github.com/sindresorhus/p-reduce
 [p-settle]: https://github.com/sindresorhus/p-settle
+[standard-version]: https://github.com/conventional-changelog/standard-version
 [try-catch-core]: https://github.com/hybridables/try-catch-core
+[verb-generate-readme]: https://github.com/verbose/verb-generate-readme
+[verb]: https://github.com/verbose/verb
 
 [downloads-url]: https://www.npmjs.com/package/each-promise
 [downloads-img]: https://img.shields.io/npm/dt/each-promise.svg
@@ -378,8 +386,4 @@ _Project scaffolded using [charlike][] cli._
 [standard-url]: https://github.com/feross/standard
 [standard-img]: https://img.shields.io/badge/code%20style-standard-brightgreen.svg
 
-[charlike]: https://github.com/tunnckocore/charlike
-[commitizen]: https://github.com/commitizen/cz-cli
-[standard-version]: https://github.com/conventional-changelog/standard-version
-[verb-generate-readme]: https://github.com/verbose/verb-generate-readme
-[verb]: https://github.com/verbose/verb
+[common-callback-names]: https://github.com/tunnckocore/common-callback-names
