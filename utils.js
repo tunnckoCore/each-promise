@@ -7,12 +7,10 @@
 
 'use strict'
 
-var tryCatchCore = require('try-catch-core')
 var extendShallow = require('extend-shallow')
 var nativePromise = require('native-promise')
 
 var utils = {}
-utils.tryCatchCore = tryCatchCore
 utils.extend = extendShallow
 utils.Promise = nativePromise
 
@@ -23,6 +21,7 @@ utils.defaults = function defaults (mapper, opts) {
     options = mapper
     mapper = null
   }
+
   options = utils.extend({}, options, opts)
   options = utils.extend({
     Promise: utils.Promise,
@@ -42,17 +41,6 @@ utils.defaults = function defaults (mapper, opts) {
   return options
 }
 
-utils.tryCatch = function tryCatch (fn, options) {
-  return new options.Promise(function (resolve, reject) {
-    utils.tryCatchCore(fn, options, function (err, res) {
-      if (err || res instanceof Error) {
-        return reject(err || res)
-      }
-      return resolve(res)
-    })
-  })
-}
-
 utils.iterator = function iterator (arr, results) {
   return function (options, resolve, reject) {
     return function next (index) {
@@ -63,13 +51,9 @@ utils.iterator = function iterator (arr, results) {
       var item = arr[index]
       options.beforeEach({ value: item, index: index }, index, arr)
 
-      var val = typeof item === 'function'
-        ? utils.tryCatch(item, options)
-        : item
-
-      var promise = val instanceof Error
-        ? options.Promise.reject(val)
-        : options.Promise.resolve(val)
+      var promise = typeof item === 'function'
+        ? utils.handleFn(item, options)
+        : utils.handleValue(item, options)
 
       var handle = utils.handleResults({
         arr: arr,
@@ -98,8 +82,44 @@ utils.iterator = function iterator (arr, results) {
   }
 }
 
+utils.handleFn = function handleFn (fn, opts) {
+  return new opts.Promise(function (resolve, reject) {
+    var called = false
+
+    function done (e, res) {
+      called = true
+      if (e) return reject(e)
+      if (res instanceof Error) {
+        return reject(res)
+      }
+      return resolve(res)
+    }
+
+    var args = utils.arrayify(opts.args)
+    args = fn.length ? args.concat(done) : args
+
+    var ret = fn.apply(opts.context, args)
+
+    if (!called) {
+      ret instanceof Error
+        ? reject(ret)
+        : resolve(ret)
+    }
+  })
+}
+
+utils.arrayify = function arrayify (val) {
+  return val ? (Array.isArray(val) ? val : [val]) : []
+}
+
+utils.handleValue = function handleValue (val, opts) {
+  return val instanceof Error
+    ? opts.Promise.reject(val)
+    : opts.Promise.resolve(val)
+}
+
 utils.handleResults = function handleResults (config, options) {
-  return function (name) {
+  return function handle (name) {
     return function handler (val) {
       var ret = {}
 

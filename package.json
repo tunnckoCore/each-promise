@@ -21,8 +21,7 @@
   },
   "dependencies": {
     "extend-shallow": "^2.0.1",
-    "native-promise": "^1.0.1",
-    "try-catch-core": "^2.0.2"
+    "native-promise": "^1.0.1"
   },
   "devDependencies": {
     "commitizen": "~2.7.0",
@@ -128,9 +127,9 @@
   },
   "nyc": {
     "check-coverage": true,
-    "statements": 100,
-    "functions": 100,
-    "branches": 100,
-    "lines": 100
+    "statements": 90,
+    "functions": 90,
+    "branches": 80,
+    "lines": 90
   }
 }
