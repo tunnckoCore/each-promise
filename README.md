@@ -274,7 +274,6 @@ eachPromise
 * `finish` **{Function}**: called at the end of iteration, see [hooks section](#hooks)
 * `context` **{Object}**: custom context to be passed to each `fn` in `iterable`
 * `args` **{Array}**: custom argument(s) to be pass to `fn`, given value is arrayified
-* `passCallback` **{Boolean}**: automatically `true` if `fn` has some of [common-callback-names][]
 
 **[back to top](#readme)**
 
@@ -407,4 +406,3 @@ _Project scaffolded using [charlike][] cli._
 [standard-url]: https://github.com/feross/standard
 [standard-img]: https://img.shields.io/badge/code%20style-standard-brightgreen.svg
 
-[common-callback-names]: https://github.com/tunnckocore/common-callback-names
