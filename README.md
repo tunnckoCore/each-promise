@@ -68,9 +68,11 @@ const arr = [
   () => Promise.resolve(11)
 ]
 
-eachPromise.serial(arr).then((res) => {
-  console.log(res) // => [123, 'foo', 456, 567, false, 11]
-})
+eachPromise
+  .serial(arr)
+  .then((res) => {
+    console.log(res) // => [123, 'foo', 456, 567, false, 11]
+  })
 ```
 
 ## Background
@@ -104,7 +106,7 @@ For free you get hooks system. And really it cost nothing. It just able to be do
 
 ## API
 
-### [.serial](index.js#L57)
+### [.serial](index.js#L60)
 > Iterate over `iterable` in series (serially) with optional `opts` (see [options section](#options)) and optional `mapper` function (see [item section](#item)).
 
 **Params**
@@ -128,24 +130,27 @@ var arr = [
   () => delay(150).then(() => 5)
 ]
 
-eachPromise.serial(arr)
-.then((res) => {
-  console.log(res) // [1, Error: foo, 3, 4, 5]
-})
+eachPromise
+  .serial(arr)
+  .then((res) => {
+    console.log(res) // [1, Error: foo, 3, 4, 5]
+  })
 
 // see what happens when parallel
-eachPromise.parallel(arr)
-.then((res) => {
-  console.log(res) // => [3, 5, Error: foo, 4, 1]
-})
+eachPromise
+  .parallel(arr)
+  .then((res) => {
+    console.log(res) // => [3, 5, Error: foo, 4, 1]
+  })
 
 // pass `settle: false` if you want
 // to stop after first error
-eachPromise.serial(arr, { settle: false })
-.catch((err) => console.log(err)) // => Error: foo
+eachPromise
+  .serial(arr, { settle: false })
+  .catch((err) => console.log(err)) // => Error: foo
 ```
 
-### [.parallel](index.js#L139)
+### [.parallel](index.js#L144)
 > Iterate concurrently over `iterable` in parallel (support limiting with `opts.concurrency`) with optional `opts` (see [options section](#options)) and optional `mapper` function (see [item section](#item)).
 
 **Params**
@@ -200,23 +205,25 @@ var arr = [
 
 // does not stop after first error
 // pass `settle: false` if you want
-eachPromise.parallel(arr).then((res) => {
-  console.log(res)
-  // => [
-  //   'foobar',
-  //   'abc',
-  //   'zero',
-  //   'last',
-  //   ReferenceError: sasasa is not defined,
-  //   123,
-  //   789,
-  //   ReferenceError: coffffnsole is not defined
-  //   345
-  // ]
-})
+eachPromise
+  .parallel(arr)
+  .then((res) => {
+    console.log(res)
+    // => [
+    //   'foobar',
+    //   'abc',
+    //   'zero',
+    //   'last',
+    //   ReferenceError: sasasa is not defined,
+    //   123,
+    //   789,
+    //   ReferenceError: coffffnsole is not defined
+    //   345
+    // ]
+  })
 ```
 
-### [.each](index.js#L185)
+### [.each](index.js#L190)
 > Iterate over `iterable` in series or parallel (default), depending on default `opts`. Pass `opts.serial: true` if you want to iterate in series, pass `opts.serial: false` or does not pass anything for parallel.
 
 **Params**

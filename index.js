@@ -29,21 +29,24 @@ var eachPromise = {}
  *   () => delay(150).then(() => 5)
  * ]
  *
- * eachPromise.serial(arr)
- * .then((res) => {
- *   console.log(res) // [1, Error: foo, 3, 4, 5]
- * })
+ * eachPromise
+ *   .serial(arr)
+ *   .then((res) => {
+ *     console.log(res) // [1, Error: foo, 3, 4, 5]
+ *   })
  *
  * // see what happens when parallel
- * eachPromise.parallel(arr)
- * .then((res) => {
- *   console.log(res) // => [3, 5, Error: foo, 4, 1]
- * })
+ * eachPromise
+ *   .parallel(arr)
+ *   .then((res) => {
+ *     console.log(res) // => [3, 5, Error: foo, 4, 1]
+ *   })
  *
  * // pass `settle: false` if you want
  * // to stop after first error
- * eachPromise.serial(arr, { settle: false })
- * .catch((err) => console.log(err)) // => Error: foo
+ * eachPromise
+ *   .serial(arr, { settle: false })
+ *   .catch((err) => console.log(err)) // => Error: foo
  * ```
  *
  * @name   .serial
@@ -112,20 +115,22 @@ eachPromise.serial = function eachSerial (iterable, mapper, opts) {
  *
  * // does not stop after first error
  * // pass `settle: false` if you want
- * eachPromise.parallel(arr).then((res) => {
- *   console.log(res)
- *   // => [
- *   //   'foobar',
- *   //   'abc',
- *   //   'zero',
- *   //   'last',
- *   //   ReferenceError: sasasa is not defined,
- *   //   123,
- *   //   789,
- *   //   ReferenceError: coffffnsole is not defined
- *   //   345
- *   // ]
- * })
+ * eachPromise
+ *   .parallel(arr)
+ *   .then((res) => {
+ *     console.log(res)
+ *     // => [
+ *     //   'foobar',
+ *     //   'abc',
+ *     //   'zero',
+ *     //   'last',
+ *     //   ReferenceError: sasasa is not defined,
+ *     //   123,
+ *     //   789,
+ *     //   ReferenceError: coffffnsole is not defined
+ *     //   345
+ *     // ]
+ *   })
  * ```
  *
  * @name   .parallel
