@@ -160,7 +160,7 @@ eachPromise.parallel = function eachParallel (iterable, mapper, opts) {
  * var delay = require('delay')
  * var eachPromise = require('each-promise')
  *
- * var promise = eachPromise.each([
+ * var arr = [
  *   123,
  *   function () {
  *     return delay(500).then(() => 456)
@@ -172,11 +172,13 @@ eachPromise.parallel = function eachParallel (iterable, mapper, opts) {
  *   function () {
  *     return delay(200).then(() => 'foo')
  *   }
- * ])
+ * ]
  *
- * promise.then(function (res) {
- *   console.log('done', res) // => [123, 678, 999, 'foo', 456]
- * })
+ * eachPromise
+ *   .each(arr)
+ *   .then(function (res) {
+ *     console.log('done', res) // => [123, 678, 999, 'foo', 456]
+ *   })
  * ```
  *
  * @name   .each

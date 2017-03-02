@@ -223,7 +223,7 @@ eachPromise
   })
 ```
 
-### [.each](index.js#L190)
+### [.each](index.js#L192)
 > Iterate over `iterable` in series or parallel (default), depending on default `opts`. Pass `opts.serial: true` if you want to iterate in series, pass `opts.serial: false` or does not pass anything for parallel.
 
 **Params**
@@ -239,7 +239,7 @@ eachPromise
 var delay = require('delay')
 var eachPromise = require('each-promise')
 
-var promise = eachPromise.each([
+var arr = [
   123,
   function () {
     return delay(500).then(() => 456)
@@ -251,11 +251,13 @@ var promise = eachPromise.each([
   function () {
     return delay(200).then(() => 'foo')
   }
-])
+]
 
-promise.then(function (res) {
-  console.log('done', res) // => [123, 678, 999, 'foo', 456]
-})
+eachPromise
+  .each(arr)
+  .then(function (res) {
+    console.log('done', res) // => [123, 678, 999, 'foo', 456]
+  })
 ```
 
 ## Options
