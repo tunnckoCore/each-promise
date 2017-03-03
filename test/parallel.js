@@ -48,7 +48,7 @@ test('should `.parallel` stop after first error if settle:false', function (done
 test('should `.parallel` with custom concurrency and `mapper`', function (done) {
   var concurrency = 3
   eachPromise.parallel(fixtureTwo(), function (item) {
-    return item.reason && item.reason.message || item.value
+    return (item.reason && item.reason.message) || item.value
   }, { concurrency: concurrency }).then(function (res) {
     test.strictEqual(res.length, 5)
     test.strictEqual(res[0], 3)

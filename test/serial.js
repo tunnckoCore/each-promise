@@ -129,7 +129,7 @@ test('should `.serial` catch returned rejected promise', function () {
 
 test('should `.serial` catch thrown errors', function () {
   var fnThrows = function () {
-    zaz // eslint-disable-line no-undef
+    zaz // eslint-disable-line no-undef, no-unused-expressions
   }
 
   return eachPromise.serial([fnThrows], {

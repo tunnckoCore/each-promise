@@ -75,7 +75,6 @@ utils.iterator = function iterator (arr, results) {
           if (options.settle === false) {
             options.finish(err, results)
             reject(err)
-            return
           }
         })
     }
