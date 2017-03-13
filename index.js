@@ -192,7 +192,9 @@ eachPromise.parallel = function eachParallel (iterable, mapper, opts) {
 eachPromise.each = function each (iterable, mapper, opts) {
   if (typeof iterable !== 'object') {
     var err = new TypeError('expect `iterable` to be array, iterable or object')
-    return Promise.reject(err)
+    return utils.promisify(function (done) {
+      done(err)
+    }, opts)()
   }
   var options = utils.defaults(mapper, opts)
   return promiseEach(iterable, options)
