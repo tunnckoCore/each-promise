@@ -15,6 +15,13 @@ var eachPromise = {}
  * with optional `opts` (see [options section](#options))
  * and optional `mapper` function (see [item section](#item)).
  *
+ * **Note:** It may throw **in one VERY** specific case! That case is
+ * when **invalid** `iterable` is passed AND no opts.Promise
+ * AND no native Promise support! Otherwise **ALWAYS** returns rejected promise:
+ * 1) if node >= 0.11.13 with native Promise - return rejected promise;
+ * 2) if node >= 0.11.13 with opts.Promise - return rejected promise;
+ * 3) if node < 0.11.13, but opts.Promise - return rejected promise;
+ *
  * **Example**
  *
  * ```js
@@ -53,7 +60,8 @@ var eachPromise = {}
  * @param  {Array|Object} `<iterable>` iterable object like array or object with any type of values
  * @param  {Function} `[mapper]` function to apply to each item in `iterable`, see [item section](#item)
  * @param  {Object} `[opts]` see [options section](#options)
- * @return {Promise}
+ * @return {Promise} If `iterable` not Array or Object AND no opts.Promise AND no native Promise
+ *                   it THROWS, otherwise ALWAYS returns a promise!
  * @api public
  */
 
@@ -69,6 +77,13 @@ eachPromise.serial = function eachSerial (iterable, mapper, opts) {
  * > Iterate concurrently over `iterable` in parallel (support limiting with `opts.concurrency`)
  * with optional `opts` (see [options section](#options))
  * and optional `mapper` function (see [item section](#item)).
+ *
+ * **Note:** It may throw **in one VERY** specific case! That case is
+ * when **invalid** `iterable` is passed AND no opts.Promise
+ * AND no native Promise support! Otherwise **ALWAYS** returns rejected promise:
+ * 1) if node >= 0.11.13 with native Promise - return rejected promise;
+ * 2) if node >= 0.11.13 with opts.Promise - return rejected promise;
+ * 3) if node < 0.11.13, but opts.Promise - return rejected promise;
  *
  * **Example**
  *
@@ -137,7 +152,8 @@ eachPromise.serial = function eachSerial (iterable, mapper, opts) {
  * @param  {Array|Object} `<iterable>` iterable object like array or object with any type of values
  * @param  {Function} `[mapper]` function to apply to each item in `iterable`, see [item section](#item)
  * @param  {Object} `[opts]` see [options section](#options)
- * @return {Promise}
+ * @return {Promise} If `iterable` not Array or Object AND no opts.Promise AND no native Promise
+ *                   it THROWS, otherwise ALWAYS returns a promise!
  * @api public
  */
 
@@ -153,6 +169,13 @@ eachPromise.parallel = function eachParallel (iterable, mapper, opts) {
  * default `opts`. Pass `opts.serial: true` if you
  * want to iterate in series, pass `opts.serial: false` or does not
  * pass anything for parallel.
+ *
+ * **Note:** It may throw **in one VERY** specific case! That case is
+ * when **invalid** `iterable` is passed AND no opts.Promise
+ * AND no native Promise support! Otherwise **ALWAYS** returns rejected promise:
+ * 1) if node >= 0.11.13 with native Promise - return rejected promise;
+ * 2) if node >= 0.11.13 with opts.Promise - return rejected promise;
+ * 3) if node < 0.11.13, but opts.Promise - return rejected promise;
  *
  * **Example**
  *
@@ -185,7 +208,8 @@ eachPromise.parallel = function eachParallel (iterable, mapper, opts) {
  * @param  {Array|Object} `<iterable>` iterable object like array or object with any type of values
  * @param  {Function} `[mapper]` function to apply to each item in `iterable`, see [item section](#item)
  * @param  {Object} `[opts]` see [options section](#options)
- * @return {Promise}
+ * @return {Promise} If `iterable` not Array or Object AND no opts.Promise AND no native Promise
+ *                   it THROWS, otherwise ALWAYS returns a promise!
  * @api public
  */
 
