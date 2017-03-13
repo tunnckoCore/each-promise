@@ -8,11 +8,11 @@
 'use strict'
 
 var extendShallow = require('extend-shallow')
-var nativePromise = require('native-promise')
+var redolent = require('redolent')
 
 var utils = {}
 utils.extend = extendShallow
-utils.Promise = nativePromise
+utils.promisify = redolent
 
 utils.defaults = function defaults (mapper, opts) {
   var options = null
@@ -24,7 +24,6 @@ utils.defaults = function defaults (mapper, opts) {
 
   options = utils.extend({}, options, opts)
   options = utils.extend({
-    Promise: utils.Promise,
     settle: true,
     flat: true,
     serial: false,
@@ -52,8 +51,8 @@ utils.iterator = function iterator (arr, results) {
       options.beforeEach({ value: item, index: index }, index, arr)
 
       var promise = typeof item === 'function'
-        ? utils.handleFn(item, options)
-        : utils.handleValue(item, options)
+        ? utils.promisify(item, options)()
+        : utils.promisify(function () { return item }, options)()
 
       var handle = utils.handleResults({
         arr: arr,
@@ -79,42 +78,6 @@ utils.iterator = function iterator (arr, results) {
         })
     }
   }
-}
-
-utils.handleFn = function handleFn (fn, opts) {
-  return new opts.Promise(function (resolve, reject) {
-    var called = false
-
-    function done (e, res) {
-      called = true
-      if (e) return reject(e)
-      if (res instanceof Error) {
-        return reject(res)
-      }
-      return resolve(res)
-    }
-
-    var args = utils.arrayify(opts.args)
-    args = fn.length ? args.concat(done) : args
-
-    var ret = fn.apply(opts.context, args)
-
-    if (!called) {
-      ret instanceof Error
-        ? reject(ret)
-        : resolve(ret)
-    }
-  })
-}
-
-utils.arrayify = function arrayify (val) {
-  return val ? (Array.isArray(val) ? val : [val]) : []
-}
-
-utils.handleValue = function handleValue (val, opts) {
-  return val instanceof Error
-    ? opts.Promise.reject(val)
-    : opts.Promise.resolve(val)
 }
 
 utils.handleResults = function handleResults (config, options) {

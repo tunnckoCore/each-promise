@@ -208,7 +208,13 @@ eachPromise.each = function each (iterable, mapper, opts) {
  */
 
 function promiseEach (iterable, opts) {
-  return new opts.Promise(function (resolve, reject) {
+  return utils.promisify(function (done) {
+    var resolve = function (res) {
+      done(null, res)
+    }
+    var reject = function (er) {
+      done(er)
+    }
     var results = []
     var arr = Array.isArray(iterable) ? iterable : []
     arr.doneCount = 0
@@ -230,7 +236,7 @@ function promiseEach (iterable, opts) {
       return
     }
     utils.iterator(arr, results)(opts, resolve, reject)(0)
-  })
+  })()
 }
 
 module.exports = eachPromise
