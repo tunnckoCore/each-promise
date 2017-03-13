@@ -236,7 +236,7 @@ function promiseEach (iterable, opts) {
       return
     }
     utils.iterator(arr, results)(opts, resolve, reject)(0)
-  })()
+  }, opts)()
 }
 
 module.exports = eachPromise
