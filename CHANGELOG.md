@@ -2,6 +2,24 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="1.0.4"></a>
+## [1.0.4](https://github.com/tunnckocore/each-promise/compare/v1.0.3...v1.0.4) (2017-03-15)
+
+
+### Bug Fixes
+
+* **ci:** disallow failures on node 0.10 and node 0.12 ([29f55fb](https://github.com/tunnckocore/each-promise/commit/29f55fb)), closes [#24](https://github.com/tunnckocore/each-promise/issues/24)
+* **completion:** use `redolent` for executing the functions ([60e3b84](https://github.com/tunnckocore/each-promise/commit/60e3b84))
+* **handling:** always completion; handle cases when fn has callback argument ([b2323a7](https://github.com/tunnckocore/each-promise/commit/b2323a7)), closes [#23](https://github.com/tunnckocore/each-promise/issues/23)
+* **hooks:** ensure finish hook is called when settle:false ([1de4ccc](https://github.com/tunnckocore/each-promise/commit/1de4ccc))
+* **index.js:** pass options to redolent from promiseEach factory ([9ee5d1a](https://github.com/tunnckocore/each-promise/commit/9ee5d1a))
+* **nyc:** force nyc to 100% coverage ([98ef4a3](https://github.com/tunnckocore/each-promise/commit/98ef4a3))
+* **package.json:** fix lint script to lint exact files ([182865c](https://github.com/tunnckocore/each-promise/commit/182865c))
+* **standard:** bump standard to v9 ([ff11c4e](https://github.com/tunnckocore/each-promise/commit/ff11c4e))
+* **tests:** improve and organize tests - should work on node 0.10\n\nyou must provide a opts.Promise if you are in env that don\'t have native Promise support. If you\ndon\'t provide opts.Promise AND no native Promise support AND invalid iterable is passed to some of\nthe methods then THEY WILL THROW a TypeError with message: no native Promise and no opts.Promise.\n\nNO break-ing! ALL methods returns a promise except ONE VERY specific case when no native promise\nsupport AND invalid iterable ([f810fe4](https://github.com/tunnckocore/each-promise/commit/f810fe4))
+
+
+
 <a name="1.0.3"></a>
 ## [1.0.3](https://github.com/tunnckocore/each-promise/compare/v1.0.2...v1.0.3) (2017-02-28)
 
