@@ -187,6 +187,24 @@ function factory (fnSerial) {
       done()
     }, done).catch(done)
   })
+
+  test('should call finish hook if settle:false', function (done) {
+    var called = 0
+    var promise = fnSerial(fixtureTwo(), {
+      settle: false,
+      finish: function (err) {
+        test.strictEqual(err instanceof Error, true)
+        called++
+      }
+    })
+
+    promise
+      .catch(function (er) {
+        test.strictEqual(called, 1)
+        test.strictEqual(er instanceof Error, true)
+        done()
+      })
+  })
 }
 
 if (semver.lt(process.version, '0.11.13')) {

@@ -60,8 +60,13 @@ utils.iterator = function iterator (arr, results) {
         results: results
       }, options)
 
-      promise
-        .then(handle('value'), handle('reason'))
+      var onRejected = options.settle === false ? function onrejected (err) {
+        options.finish(err, results)
+        reject(err)
+      } : null
+
+      promise.then(handle('value'), handle('reason'))
+        .catch(onRejected)
         .then(function onresolved () {
           if (arr.doneCount++ === arr.length - 1) {
             options.finish(null, results)
@@ -69,13 +74,8 @@ utils.iterator = function iterator (arr, results) {
             return
           }
           next(index + options.concurrency)
-        }, function onrejected (err) {
-          /* istanbul ignore next */
-          if (options.settle === false) {
-            options.finish(err, results)
-            reject(err)
-          }
         })
+        .catch(onRejected)
     }
   }
 }
