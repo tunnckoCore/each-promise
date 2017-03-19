@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="1.0.5"></a>
+## [1.0.5](https://github.com/tunnckoCore/each-promise/compare/v1.0.4...v1.0.5) (2017-03-19)
+
+
+### Bug Fixes
+
+* **deps:** force update deps, swtich to use "native-or-another" ([4136190](https://github.com/tunnckoCore/each-promise/commit/4136190))
+* **docs:** update docs ([f3696a6](https://github.com/tunnckoCore/each-promise/commit/f3696a6))
+* **update:** cleanup ([9a3edb0](https://github.com/tunnckoCore/each-promise/commit/9a3edb0))
+
+
+
 <a name="1.0.4"></a>
 ## [1.0.4](https://github.com/tunnckocore/each-promise/compare/v1.0.3...v1.0.4) (2017-03-15)
 
