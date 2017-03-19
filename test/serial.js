@@ -207,33 +207,24 @@ function factory (fnSerial) {
   })
 }
 
-if (semver.lt(process.version, '0.11.13')) {
+if (semver.lt(process.version, '0.12.0')) {
   factory(function (val, opts) {
     return eachPromise.serial(val, extend({
       Promise: Bluebird
     }, opts))
   })
 
-  test('should on node < 0.11.13 - return rejected promise if not an `iterable`, but has Promise', function (done) {
+  test('should on node < 0.12 - return rejected promise if not an `iterable`, but has Promise', function (done) {
     eachPromise.serial(123, { Promise: Bluebird }).catch(function (err) {
       test.strictEqual(err.name, 'TypeError')
       test.strictEqual(err.message, 'expect `iterable` to be array, iterable or object')
       done()
     }).catch(done)
   })
-
-  test('should on node < 0.11.13 - throw TypeError if `iterable` not valid and no native Promise or no opts.Promise', function (done) {
-    function fixture () {
-      eachPromise.serial(123)
-    }
-    test.throws(fixture, TypeError)
-    test.throws(fixture, /no native Promise support and no opts\.Promise/)
-    done()
-  })
 } else {
   factory(eachPromise.serial)
 
-  test('should on node >= 0.11.13 return rejected promise if `iterable` not valid', function (done) {
+  test('should on node >= 0.12 return rejected promise if `iterable` not valid', function (done) {
     eachPromise.serial(123).catch(function (err) {
       test.strictEqual(err.name, 'TypeError')
       test.strictEqual(err.message, 'expect `iterable` to be array, iterable or object')

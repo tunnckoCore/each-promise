@@ -21,7 +21,8 @@
   },
   "dependencies": {
     "extend-shallow": "^2.0.1",
-    "redolent": "^2.0.1"
+    "native-or-another": "^5.0.1",
+    "redolent": "^2.0.3"
   },
   "devDependencies": {
     "bluebird": "^3.5.0",

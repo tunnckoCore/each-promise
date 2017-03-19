@@ -7,6 +7,8 @@
 
 'use strict'
 
+var register = require('native-or-another/register')
+var Promize = require('native-or-another')
 var extendShallow = require('extend-shallow')
 var redolent = require('redolent')
 
@@ -24,6 +26,7 @@ utils.defaults = function defaults (mapper, opts) {
 
   options = utils.extend({}, options, opts)
   options = utils.extend({
+    Promise: Promize,
     settle: true,
     flat: true,
     serial: false,
@@ -33,6 +36,7 @@ utils.defaults = function defaults (mapper, opts) {
     afterEach: function afterEachHook () {},
     finish: function finishHook () {}
   }, options)
+  options.Promise = register({ Promise: options.Promise, 'global': false })
 
   mapper = options.mapper || mapper
   options.mapper = typeof mapper === 'function' ? mapper : false
