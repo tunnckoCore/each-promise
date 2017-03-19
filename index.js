@@ -7,6 +7,7 @@
 
 'use strict'
 
+var Promize = require('native-or-another')
 var utils = require('./utils')
 var eachPromise = {}
 
@@ -57,11 +58,10 @@ var eachPromise = {}
  * ```
  *
  * @name   .serial
- * @param  {Array|Object} `<iterable>` iterable object like array or object with any type of values
+ * @param  {Array} `<iterable>` iterable object like array or object with any type of values
  * @param  {Function} `[mapper]` function to apply to each item in `iterable`, see [item section](#item)
  * @param  {Object} `[opts]` see [options section](#options)
- * @return {Promise} If `iterable` not Array or Object AND no opts.Promise AND no native Promise
- *                   it THROWS, otherwise ALWAYS returns a promise!
+ * @return {Promise} Always resolved or rejected promise
  * @api public
  */
 
@@ -152,8 +152,7 @@ eachPromise.serial = function eachSerial (iterable, mapper, opts) {
  * @param  {Array|Object} `<iterable>` iterable object like array or object with any type of values
  * @param  {Function} `[mapper]` function to apply to each item in `iterable`, see [item section](#item)
  * @param  {Object} `[opts]` see [options section](#options)
- * @return {Promise} If `iterable` not Array or Object AND no opts.Promise AND no native Promise
- *                   it THROWS, otherwise ALWAYS returns a promise!
+ * @return {Promise} Always resolved or rejected promise
  * @api public
  */
 
@@ -208,17 +207,14 @@ eachPromise.parallel = function eachParallel (iterable, mapper, opts) {
  * @param  {Array|Object} `<iterable>` iterable object like array or object with any type of values
  * @param  {Function} `[mapper]` function to apply to each item in `iterable`, see [item section](#item)
  * @param  {Object} `[opts]` see [options section](#options)
- * @return {Promise} If `iterable` not Array or Object AND no opts.Promise AND no native Promise
- *                   it THROWS, otherwise ALWAYS returns a promise!
+ * @return {Promise} Always resolved or rejected promise
  * @api public
  */
 
 eachPromise.each = function each (iterable, mapper, opts) {
   if (typeof iterable !== 'object') {
     var err = new TypeError('expect `iterable` to be array, iterable or object')
-    return utils.promisify(function (done) {
-      done(err)
-    }, opts)()
+    return Promize.reject(err)
   }
   var options = utils.defaults(mapper, opts)
   return promiseEach(iterable, options)
