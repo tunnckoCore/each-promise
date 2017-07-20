@@ -26,7 +26,7 @@
   },
   "devDependencies": {
     "bluebird": "^3.5.0",
-    "commitizen": "~2.7.0",
+    "commitizen": "2.9.6",
     "cz-conventional-changelog": "1.1.5",
     "mukla": "^0.4.9",
     "npm-run-all": "~3.1.2",
