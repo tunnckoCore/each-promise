@@ -360,7 +360,7 @@ $ npm install && npm test
 The logo is [Cyclone Emoji](https://cdn.jsdelivr.net/emojione/assets/svg/1f300.svg) from [EmojiOne.com](http://emojione.com/). Released under the [CC BY 4.0](http://emojione.com/licensing/) license.
 
 ## License
-Copyright © 2016-2017, [Charlike Mike Reagent](http://www.tunnckocore.tk). Released under the [MIT License](LICENSE).
+Copyright © 2016-2018, [Charlike Mike Reagent](http://www.tunnckocore.tk). Released under the [MIT License](LICENSE).
 
 ***
 
@@ -388,17 +388,17 @@ _Project scaffolded using [charlike][] cli._
 [downloads-url]: https://www.npmjs.com/package/each-promise
 [downloads-img]: https://img.shields.io/npm/dt/each-promise.svg
 
-[codeclimate-url]: https://codeclimate.com/github/tunnckoCore/each-promise
-[codeclimate-img]: https://img.shields.io/codeclimate/github/tunnckoCore/each-promise.svg
+[codeclimate-url]: https://codeclimate.com/github/olstenlarck/each-promise
+[codeclimate-img]: https://img.shields.io/codeclimate/github/olstenlarck/each-promise.svg
 
-[travis-url]: https://travis-ci.org/tunnckoCore/each-promise
-[travis-img]: https://img.shields.io/travis/tunnckoCore/each-promise/master.svg?label=linux
+[travis-url]: https://travis-ci.org/olstenlarck/each-promise
+[travis-img]: https://img.shields.io/travis/olstenlarck/each-promise/master.svg?label=linux
 
 [appveyor-url]: https://ci.appveyor.com/project/tunnckoCore/each-promise
 [appveyor-img]: https://img.shields.io/appveyor/ci/tunnckoCore/each-promise/master.svg?label=windows
 
-[coverage-url]: https://codecov.io/gh/tunnckoCore/each-promise
-[coverage-img]: https://img.shields.io/codecov/c/github/tunnckoCore/each-promise/master.svg
+[coverage-url]: https://codecov.io/gh/olstenlarck/each-promise
+[coverage-img]: https://img.shields.io/codecov/c/github/olstenlarck/each-promise/master.svg
 
 [david-url]: https://david-dm.org/tunnckoCore/each-promise
 [david-img]: https://img.shields.io/david/tunnckoCore/each-promise.svg
